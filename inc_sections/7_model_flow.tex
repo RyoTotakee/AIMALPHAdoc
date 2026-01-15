@@ -106,7 +106,7 @@ Generates graphical outputs and visualization figures from the simulation result
 \subsection{Execution Method}
 
 The AIM-ALPHA model can be executed by running the shell script 
-\texttt{AIMALPHA/shell/execution.sh} on either Cygwin or Ubuntu environments. \\
+\texttt{AIMALPHA/shell/ALPHA\_exe.sh} on either Cygwin or Ubuntu environments. \\
 Model configurations are defined in \texttt{AIMALPHA/shell/model\_setting.sh}.  
 As summarized in Table~\ref{tab:model_setting}, the configurable items include 
 the selection of executable programs, scenario settings, and computational environment settings.
@@ -117,10 +117,10 @@ To run the model, move to the \texttt{AIMALPHA/shell} directory and execute:
 
 \begin{lstlisting}[language=bash]
 cd AIMALPHA/shell
-bash execution.sh
+bash ALPHA_exe.sh
 \end{lstlisting}
 
-When \texttt{execution.sh} is called without any arguments, 
+When \texttt{ALPHA\_exe.sh} is called without any arguments, 
 the default configuration file \texttt{model\_setting.sh} is loaded automatically 
 and the model is executed using those settings.
 
@@ -132,12 +132,12 @@ In this case, the configuration defined in the specified file is used instead of
 
 \begin{lstlisting}[language=bash]
 cd AIMALPHA/shell
-bash execution.sh mysetting
+bash ALPHA_exe.sh mysetting
 \end{lstlisting}
 
 Here, \texttt{mysetting.sh} denotes a user-defined setting file 
 (e.g.\ a copy of \texttt{model\_setting.sh} with modified options).  
-Each run of \texttt{bash execution.sh <setting\_file>} loads the corresponding setting file 
+Each run of \texttt{bash ALPHA\_exe.sh <setting\_file>} loads the corresponding setting file 
 and executes the model according to those configurations.
 
 
