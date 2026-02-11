@@ -49,6 +49,7 @@ Table~\ref{tab:data_sources} lists the datasets used in the model.
   T.~P.~Robinson et~al.~(2018)~\cite{robinsonGlobalDistributionRuminant2018} & Global distribution of ruminant livestock production systems V5 & \nolinkurl{https://doi.org/10.7910/DVN/WPDSZE} \\
   Harmsen et~al.~(2019)~\cite{harmsenLongtermMarginalAbatement2019a}    & CH\textsubscript{4} and N\textsubscript{2}O MAC curves & \nolinkurl{https://doi.org/10.1016/j.envsci.2019.05.013} \\
   Hurtt et~al.~(2019)~\cite{hurttHarmonizationGlobalLand2020}      & Land Use Harmonization 2 & \nolinkurl{https://luh.umd.edu/index.shtml} \\
+  IUCN and UNEP-WCMC~\cite{iucnUNEPWCMCWorldDatabase2025} & World Database on Protected Areas (WDPA), Dec 2025 release & \nolinkurl{https://www.protectedplanet.net} \\
 \end{xltabular}
 
 \subsection{Calibration and processing of data}
@@ -364,6 +365,9 @@ where:
 \item \( aez \): the set of 57 AEZ classes,
 \item \( aezlim \in aez \): AEZ classes with severe land-use constraints.
 \end{itemize}
+
+In addition, protected-area information was incorporated using the World Database on Protected Areas (WDPA)~\cite{iucnUNEPWCMCWorldDatabase2025}.  
+The WDPA polygons were overlaid with basin-country units to estimate protected land by class, and these values were used to construct \(\overline{QLPROT}_{(bas,cty,lu\_prot)}\), which is excluded from allocatable vegetation land in the land-use block.
 
 
 \subsubsection{Adjustment of price data}

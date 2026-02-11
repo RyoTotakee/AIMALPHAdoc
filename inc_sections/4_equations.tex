@@ -517,8 +517,9 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
   QLVEG_{bas,cty}
   &= 
      \overline{QLTOT}_{bas,cty}
-     - 
-     \overline{QLVEGN}_{bas,cty}
+     - \overline{QLOTH}_{bas,cty}
+     - \overline{QLURB}_{bas,cty}
+     - \sum_{lu\_prot}\overline{QLPROT}_{bas,cty,lu\_prot}
   \tag{QLVEGEQ}\label{eq:QLVEGEQ}
 \end{align}
 
@@ -637,6 +638,32 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
   \tag{QLFRSEQ}\label{eq:QLFRSEQ}
 \end{multline}
 
+\paragraph{Primary and Secondary Forest Allocation}
+\begin{align}
+  QLPRIMF_{bas,cty}
+  &= QLFRS_{bas,cty}
+     \cdot
+     \frac{
+       \delta^{\text{primf}}_{bas,cty}\, PLPRIMF_{bas,cty}^{\,\rho^{\text{primf}}_{bas,cty}}
+     }{
+       \delta^{\text{primf}}_{bas,cty}\, PLPRIMF_{bas,cty}^{\,\rho^{\text{primf}}_{bas,cty}}
+       +
+       \delta^{\text{secdf}}_{bas,cty}\, PLSECDF_{bas,cty}^{\,\rho^{\text{secdf}}_{bas,cty}}
+     }
+  \tag{QLPRIMFEQ}\label{eq:QLPRIMFEQ}\\[0.4em]
+  QLSECDF_{bas,cty}
+  &= QLFRS_{bas,cty}
+     \cdot
+     \frac{
+       \delta^{\text{secdf}}_{bas,cty}\, PLSECDF_{bas,cty}^{\,\rho^{\text{secdf}}_{bas,cty}}
+     }{
+       \delta^{\text{primf}}_{bas,cty}\, PLPRIMF_{bas,cty}^{\,\rho^{\text{primf}}_{bas,cty}}
+       +
+       \delta^{\text{secdf}}_{bas,cty}\, PLSECDF_{bas,cty}^{\,\rho^{\text{secdf}}_{bas,cty}}
+     }
+  \tag{QLSECDFEQ}\label{eq:QLSECDFEQ}
+\end{align}
+
 \paragraph{Other Natural Land}
 \begin{multline}
   QLGRA_{bas,cty} = QLPASN_{bas,cty}\\
@@ -646,7 +673,7 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
   }{
     \delta^{\text{cro}}_{bas,cty}\, PLCRO_{bas,cty}^{\,\rho^{\text{cro}}_{bas,cty}}
     + \delta^{\text{frs}}_{bas,cty}\, PLFRS_{bas,cty}^{\,\rho^{\text{frs}}_{bas,cty}}
-    + \delta^{\text{gra}}_{bas,cty}\, \overline{PLGRA}_{bas,cty}^{\,\rho^{\text{gra}}_{bas,cty}}
+    + \delta^{\text{gra}}_{bas,cty}\, PLGRA_{bas,cty}^{\,\rho^{\text{gra}}_{bas,cty}}
   }
   \tag{QLGRAEQ}\label{eq:QLGRAEQ}
 \end{multline}
@@ -722,7 +749,7 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
   \quad
        + \overline{PLCROFAL}_{bas,cty}\cdot QLCROFAL_{bas,cty}
      \bigr)
-  \quad / (1 + PLCOMP_{bas,cty})
+  \quad / (1 + PLLIMCOMP_{bas,cty})
   \tag{PLCROEQ}\label{eq:PLCROEQ}
 \end{multline}
 
@@ -747,42 +774,117 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
 
 \vspace{0.3\baselineskip}
 
-\begin{equation}
+\begin{multline}
   PLPAS_{bas,cty}\cdot QLPAS_{bas,cty}
-  = \frac{
-      PLPASGRZ_{bas,cty}\cdot QLPASGRZ_{bas,cty}
-      +
-      PLPASUNG_{bas,cty}\cdot QLPASUNG_{bas,cty}
-    }
-    {1 + PLCOMP_{bas,cty}}
+  =
+  \\[-0.3em]
+  \quad 
+  \left(
+    PLPASGRZ_{bas,cty}\cdot QLPASGRZ_{bas,cty}
+    +
+    PLPASUNG_{bas,cty}\cdot QLPASUNG_{bas,cty}
+  \right)
+  \\[-0.3em]
+  \quad / (1 + PLLIMCOMP_{bas,cty})
   \tag{PLPASEQ}\label{eq:PLPASEQ}
-\end{equation}
+\end{multline}
 
 \vspace{0.3\baselineskip}
 
 \begin{multline}
-  PLFRS_{bas,cty}
-  = \overline{PLFRSBASE}_{bas,cty}
+  PLFRS_{bas,cty}\cdot QLFRS_{bas,cty}
+  =
   \\[-0.3em]
-  \quad
-    + \max\Bigl(
-        0,\,
-        \overline{CARBONSTOCK}_{cty} \cdot
-        \overline{PRCCAR}_{cty} \cdot
-        44/12 \cdot
-        dcffrs_{cty}
-        - affcost_{cty}
-      \Bigr)
+  \quad 
+  PLPRIMF_{bas,cty}\cdot QLPRIMF_{bas,cty}
+  +
+  PLSECDF_{bas,cty}\cdot QLSECDF_{bas,cty}
   \tag{PLFRSEQ}\label{eq:PLFRSEQ}
 \end{multline}
 
+\begin{multline}
+  PLPRIMF_{bas,cty}
+  =
+  \\[-0.3em]
+  \quad 
+  \left(
+    \overline{PLFRSBASE}_{bas,cty}
+    + \max\!\left(
+        0,\,
+        \overline{CARBONSTOCK}_{cty}
+        \cdot \frac{44}{12}
+        \cdot \overline{PRCCAR}_{cty}
+        \cdot dcffrs_{cty}
+        - affcost_{cty}
+      \right)
+  \right)
+  \\[-0.3em]
+  \quad / (1 + PLPRIMFCOMP_{bas,cty})
+  \tag{PLPRIMFEQ}\label{eq:PLPRIMFEQ}
+\end{multline}
+
+\begin{multline}
+  PLSECDF_{bas,cty}
+  =
+  \\[-0.3em]
+  \quad 
+  \left(
+    \overline{PLFRSBASE}_{bas,cty}
+    + \max\!\left(
+        0,\,
+        \overline{CARBONSTOCK}_{cty}
+        \cdot \frac{44}{12}
+        \cdot \overline{PRCCAR}_{cty}
+        \cdot dcffrs_{cty}
+        - affcost_{cty}
+      \right)
+  \right)
+  \\[-0.3em]
+  \quad / (1 + PLSECDFCOMP_{bas,cty})
+  \tag{PLSECDFEQ}\label{eq:PLSECDFEQ}
+\end{multline}
+
+\begin{align}
+  PLGRA_{bas,cty}
+  &=
+  \overline{PLGRA}_{bas,cty}
+  \cdot
+  (1+PLLIMCOMP_{bas,cty})^{1/\rho^{\text{gra}}_{bas,cty}}
+  \tag{PLGRAEQ}\label{eq:PLGRAEQ}
+\end{align}
+
+\paragraph{Forest Expansion Constraints}
+\begin{align}
+  QLPRIMF_{bas,cty}
+  &\le
+  QLPRIMF^{t-1}_{bas,cty}
+  \cdot
+  (1+\overline{PRIMF\_EXPANSIONRATE}_{bas,cty})
+  \nonumber\\[-0.3em]
+  &\quad \perp\;
+  PLPRIMFCOMP_{bas,cty}\ge 0
+  \tag{QLPRIMFLIMEQ}\label{eq:QLPRIMFLIMEQ}
+\end{align}
+
+\begin{align}
+  QLSECDF_{bas,cty}
+  &\le
+  QLSECDF^{t-1}_{bas,cty}
+  \cdot
+  (1+\overline{SECDF\_EXPANSIONRATE}_{bas,cty})
+  \nonumber\\[-0.3em]
+  &\quad \perp\;
+  PLSECDFCOMP_{bas,cty}\ge 0
+  \tag{QLSECDFLIMEQ}\label{eq:QLSECDFLIMEQ}
+\end{align}
+
 \paragraph{Agricultural Land Constraint}
 \begin{align}
-  \overline{QLLIM}_{cty}
+  \overline{QLLIM}_{bas,cty}
   &\ge
   QLCRO_{bas,cty} + QLPAS_{bas,cty}
   \;\perp\;
-  PLCOMP_{bas,cty} \ge 0
+  PLLIMCOMP_{bas,cty} \ge 0
   \tag{QLLIMEQ}\label{eq:QLLIMEQ}
 \end{align}
 
@@ -844,27 +946,32 @@ Emissions from the land-use sector are calculated according to each land area.
 \end{align}
 
 \paragraph{Land-Use Emissions}
+\begin{multline}
+  GHG\_LU_{src,gas,cty}
+  =
+  \sum_{bas}\Bigl(
+    \overline{EF\_LU\_CRO}_{src,gas,cty}\cdot QLCRO_{bas,cty}
+    \\[-0.3em]
+    + \overline{EF\_LU\_FRS}_{src,gas,cty}\cdot QLFRS_{bas,cty}
+    \\[-0.3em]
+    + \overline{EF\_LU\_FRSCOV}_{src,gas,cty}
+      \cdot \min\!\Bigl\{
+        0,\,
+        QLFRS_{bas,cty}-QLFRS^{t-1}_{bas,cty}
+      \Bigr\}
+    \\[-0.3em]
+    + \overline{EF\_LU\_PAS}_{src,gas,cty}\cdot QLPAS_{bas,cty}
+    + \overline{EF\_LU\_GRA}_{src,gas,cty}\cdot QLGRA_{bas,cty}
+  \Bigr)
+  \tag{GHG\_LUEQ}\label{eq:GHG_LUEQ}
+\end{multline}
 \begin{align}
-  GHGLU_{src,gas,bas,cty}
-  &= \overline{EF\_LU}_{src,gas,cty}
-     \cdot QLFRS_{bas,cty}
-     + \overline{EF\_LU}_{src,gas,cty}
-       \cdot QLGRA_{bas,cty}
-     \nonumber\\[-0.3em]
-  &\quad
-     + \overline{EF\_LU}_{src,gas,cty}
-       \cdot QLCRO_{bas,cty}
-     + \overline{EF\_LU}_{src,gas,cty}
-       \cdot QLPAS_{bas,cty}
-  \tag{GHGLUEQ}\label{eq:GHGLUEQ}
-\end{align}
-\begin{align}
-  GHGLU_{"afr","CO_2",bas,cty}
-  &= 
-  - \sum_{age}
+  GHG\_LU_{"afr","CO_2",cty}
+  &=
+  - \sum_{bas}\sum_{age}
       qlfrs\_age_{bas,cty,age}
       \cdot \overline{CARBONSEQ}_{cty,age}
-  \tag{GHGLUAFREQ}\label{eq:GHGLUAFREQ}
+  \tag{GHG\_LU\_AFREQ}\label{eq:GHG_LU_AFREQ}
 \end{align}
 
 \paragraph{Emission Reduction Rate}
