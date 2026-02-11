@@ -294,18 +294,10 @@ Feed use and production efficiency depend on feed composition, feed efficiency, 
 \paragraph{Available Grassland Area}
 \begin{align}
   Qgrass_{aliv,bas,cty}
-  &= 
-     \Bigl(
-       QL_{aliv,bas,cty}
-       - 
-       \overline{QLRES}_{aliv,bas,cty}
-     \Bigr)
-     \nonumber\\[-0.3em]
-  &\quad
+  &=
+     QL_{aliv,bas,cty}
      \cdot
      \overline{GRASSYLD}_{bas,cty}
-     \cdot
-     grassusagerate_{bas,cty}
   \tag{QLLIVINPUTEQ}\label{eq:QLLIVINPUTEQ}
 \end{align}
 
@@ -317,7 +309,6 @@ Feed use and production efficiency depend on feed composition, feed efficiency, 
        QS_{aliv,bas,cty}
      }{
        QL_{aliv,bas,cty}
-       - \overline{QLRES}_{aliv,bas,cty}
      }
   \tag{ANIMALYLDEQ}\label{eq:ANIMALYLDEQ}
 \end{align}
@@ -554,6 +545,49 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
   \tag{QLPASEQ}\label{eq:QLPASEQ}
 \end{align}
 
+\paragraph{Grazed and Ungrazed Pasture Allocation}
+\begin{align}
+  QLPASGRZ_{bas,cty}
+  &=
+    QLPAS_{bas,cty}
+    \cdot
+    \frac{
+      \delta^{\text{pasgrz}}_{bas,cty}
+      \cdot
+      PLPASGRZ_{bas,cty}^{\,\rho^{\text{pasgrz}}_{bas,cty}}
+    }{
+      \delta^{\text{pasgrz}}_{bas,cty}
+      \cdot
+      PLPASGRZ_{bas,cty}^{\,\rho^{\text{pasgrz}}_{bas,cty}}
+      +
+      \delta^{\text{pasung}}_{bas,cty}
+      \cdot
+      PLPASUNG_{bas,cty}^{\,\rho^{\text{pasung}}_{bas,cty}}
+    }
+  \tag{QLPASGRZEQ}\label{eq:QLPASGRZEQ}
+\end{align}
+
+\begin{align}
+  QLPASUNG_{bas,cty}
+  &=
+    QLPAS_{bas,cty}
+    \cdot
+    \frac{
+      \delta^{\text{pasung}}_{bas,cty}
+      \cdot
+      PLPASUNG_{bas,cty}^{\,\rho^{\text{pasung}}_{bas,cty}}
+    }{
+      \delta^{\text{pasgrz}}_{bas,cty}
+      \cdot
+      PLPASGRZ_{bas,cty}^{\,\rho^{\text{pasgrz}}_{bas,cty}}
+      +
+      \delta^{\text{pasung}}_{bas,cty}
+      \cdot
+      PLPASUNG_{bas,cty}^{\,\rho^{\text{pasung}}_{bas,cty}}
+    }
+  \tag{QLPASUNGEQ}\label{eq:QLPASUNGEQ}
+\end{align}
+
 
 \paragraph{Non-pasture Grassland Area}
 \begin{align}
@@ -660,7 +694,7 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
 \paragraph{Pasture Allocation}
 \begin{align}
   QL_{aliv,bas,cty}
-  &= QLPAS_{bas,cty}
+  &= QLPASGRZ_{bas,cty}
      \cdot
      \frac{
        \delta_{aliv,bas,cty}\cdot PL_{aliv,bas,cty}^{\,\rho_{aliv,bas,cty}}
@@ -706,9 +740,21 @@ A constraint is imposed to ensure that total agricultural land does not exceed t
 \vspace{0.3\baselineskip}
 
 \begin{equation}
+  PLPASGRZ_{bas,cty}\cdot QLPASGRZ_{bas,cty}
+  = \sum_{aliv} PL_{aliv,bas,cty}\cdot QL_{aliv,bas,cty}
+  \tag{PLPASGRZEQ}\label{eq:PLPASGRZEQ}
+\end{equation}
+
+\vspace{0.3\baselineskip}
+
+\begin{equation}
   PLPAS_{bas,cty}\cdot QLPAS_{bas,cty}
-  = \frac{\sum_{aliv} PL_{aliv,bas,cty}\cdot QL_{aliv,bas,cty}}
-          {1 + PLCOMP_{bas,cty}}
+  = \frac{
+      PLPASGRZ_{bas,cty}\cdot QLPASGRZ_{bas,cty}
+      +
+      PLPASUNG_{bas,cty}\cdot QLPASUNG_{bas,cty}
+    }
+    {1 + PLCOMP_{bas,cty}}
   \tag{PLPASEQ}\label{eq:PLPASEQ}
 \end{equation}
 

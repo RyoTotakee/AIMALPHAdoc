@@ -210,7 +210,8 @@ QSUP^{FAO}_{(aliv,cty)} \cdot
 \frac{QS^{HERRERO}_{(aliv,bas,cty,cz,sys)}}
 {\sum_{(bas,cz,sys)} QS^{HERRERO}_{(aliv,bas,cty,cz,sys)}} \\
 QLSYS_{(aliv,bas,cty,cz,sys)} &= 
-\big(QLPAS^{LUH2}_{(cty,bas)} - QLPASRES_{(aliv,cty)}\big) 
+\big(QLPAS^{LUH2}_{(cty,bas)} - QLPASRES_{(aliv,cty)}\big)
+  \cdot grassusagerate_{(bas,cty)}
 \nonumber\\[-0.3em]
   &\quad
 \cdot 
@@ -220,7 +221,16 @@ QLSYS_{(aliv,bas,cty,cz,sys)} &=
 
 where \( QS^{HERRERO} \) denotes production data 
 and \( QGRASS^{HERRERO} \) represents pasture use data 
-from Herrero et al. (2018).
+from Herrero et al. (2018). The grass utilization rate is calculated from
+estimated grass demand and maximum available supply, and capped in calibration
+to avoid overuse.
+
+The grazed and ungrazed pasture areas are then computed as:
+
+\begin{align}
+QLPASGRZ_{(bas,cty)} &= \sum_{(aliv,cz,sys)} QLSYS_{(aliv,bas,cty,cz,sys)} \\
+QLPASUNG_{(bas,cty)} &= QLPAS^{LUH2}_{(cty,bas)} - QLPASGRZ_{(bas,cty)}
+\end{align}
 
 Next, the feed efficiency and concentrate feed share were estimated as follows:
 

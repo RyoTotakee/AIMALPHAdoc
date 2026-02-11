@@ -16,7 +16,8 @@ The aggregated annual results provide the final outputs for each scenario.
 Additionally, model results are converted into the submission templates 
 of AgMIP (Agricultural Model Intercomparison and Improvement Project) 
 and IAMC (Integrated Assessment Modeling Consortium) 
-to facilitate data exchange and comparison.
+to facilitate data exchange and comparison.  
+When enabled in \texttt{model\_setting.sh}, the AgMIPAssessment submodule is also executed to run vetting and variable-consistency checks, and to generate plots and summary tables.
 
 \bigskip
 
@@ -100,6 +101,10 @@ Combines outputs from all scenarios to produce the comprehensive simulation data
 Generates graphical outputs and visualization figures from the simulation results.
 \end{programbox}
 
+\begin{programbox}{tool/AgMIPAssessment/shell/execution.sh}
+Executes the AgMIPAssessment submodule, using \texttt{AGMIP\_all\_scenario.gdx} and historical templates for vetting, variable-consistency checks, and plot/table generation.
+\end{programbox}
+
 
 \clearpage
 
@@ -160,6 +165,7 @@ Once downloaded, this can be turned off. & on \\
 \texttt{combine\_gdx} & Executes \texttt{4\_combine\_gdx.gms}. & on \\
 \texttt{scenario\_combine} & Executes \texttt{5\_scenario\_combine.gms}. & on \\
 \texttt{Visualization} & Executes \texttt{Visualization.R}. & on \\
+\texttt{AgMIPAssessment} & Executes AgMIPAssessment vetting and variable-consistency checks, and outputs plots/tables to \texttt{plot/AgMIPAssessment} (logs: \texttt{log/AgMIPAssessment}). & on \\
 \texttt{data\_update} & Executes \texttt{0\_csv\_to\_gdx.R}.  
 If no data update is needed, this may be turned off. & off \\
 \texttt{grid\_data} & Executes \texttt{0\_grid\_data.R}.  

@@ -104,7 +104,9 @@ Table~\ref{tab:endovars} lists the endogenous variables used in the model.
   \texttt{ANIMAL} & Number of livestock & 1000 head \\
   \texttt{PO} & Price of other production factors & \$/t \\
   \texttt{QLVEG} & Vegetation area & 1000ha \\
-  \texttt{QLPAS} & Pasture area & 1000ha \\
+  \texttt{QLPAS} & Total pasture area & 1000ha \\
+  \texttt{QLPASGRZ} & Grazed pasture area & 1000ha \\
+  \texttt{QLPASUNG} & Ungrazed pasture area & 1000ha \\
   \texttt{QLPASN} & Non-pasture area & 1000ha \\
   \texttt{QLCRO} & Cropland area & 1000ha \\
   \texttt{QLFRS} & Forest area & 1000ha \\
@@ -112,7 +114,9 @@ Table~\ref{tab:endovars} lists the endogenous variables used in the model.
   \texttt{QLCROCLT} & Harvested cropland area & 1000ha \\
   \texttt{QLCROFAL} & Fallow cropland area & 1000ha \\
   \texttt{QL} & Total production area & 1000ha \\
-  \texttt{PLPAS} & Pasture land price & \$/ha \\
+  \texttt{PLPAS} & Pasture land price (area-weighted average) & \$/ha \\
+  \texttt{PLPASGRZ} & Grazed pasture land price & \$/ha \\
+  \texttt{PLPASUNG} & Ungrazed pasture land price & \$/ha \\
   \texttt{PLPASN} & Non-pasture land price & \$/ha \\
   \texttt{PLCRO} & Cropland price & \$/ha \\
   \texttt{PLFRS} & Forest price & \$/ha \\
@@ -189,7 +193,6 @@ Table~\ref{tab:exovars} lists the exogenous variables used in the model. For dat
   \texttt{GRAINSHARE} & Share of grain feed & FAOSTAT \\
   \texttt{ANIMALWEIGHT} & Livestock body weight & FAOSTAT \\
   \texttt{ANIMALRES} & Number of non-productive livestock & FAOSTAT \\
-  \texttt{QLRES} & Pasture area not used for livestock production & FAOSTAT, LUH2 \\
   \texttt{POBASE} & Price of other production factors in the base year & FAOSTAT, GTAP~10 \\
   \texttt{QLTOT} & Total land area & LUH2 \\
   \texttt{QLVEGN} & Non-vegetated land area & LUH2 \\
@@ -239,7 +242,7 @@ Table~\ref{tab:params} lists the parameters used in the model.
   \texttt{res} & Residual parameter & \\
   \texttt{watshare} & Share of primary-crop production technologies & \\
   \texttt{czshare} & Climate zone share & \\
-  \texttt{grassusagerate} & Grass (pasture) utilization rate & \\
+  \texttt{grassusagerate} & Grass (pasture) utilization rate (base-year pasture split) & \\
   \texttt{pintcoef} & Price coefficient for intermediate inputs & \\
   \texttt{pfeedcoef} & Price coefficient for feed inputs & \\
   \texttt{pbres} & Residual between consumer price and border price & \\
