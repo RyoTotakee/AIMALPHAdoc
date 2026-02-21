@@ -511,6 +511,7 @@ Prices are linked through fixed coefficients so that the price used in the deman
 The land-use block allocates available land among different uses through a Logit function.  
 Prices for non-human-used land (forest, other natural land, and fallow land) are fixed at their baseline values.  
 A constraint is imposed to ensure that total agricultural land does not exceed the physically available land area due to slope and soil limitations.  
+Urban land is fixed exogenously in each simulation year, using the LUH2-consistent base-year level and SSP-specific future change from the SEDAC urban dataset.
 
 \paragraph{Vegetation Area}
 \begin{align}

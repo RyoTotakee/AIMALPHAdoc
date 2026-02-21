@@ -49,6 +49,8 @@ Table~\ref{tab:data_sources} lists the datasets used in the model.
   T.~P.~Robinson et~al.~(2018)~\cite{robinsonGlobalDistributionRuminant2018} & Global distribution of ruminant livestock production systems V5 & \nolinkurl{https://doi.org/10.7910/DVN/WPDSZE} \\
   Harmsen et~al.~(2019)~\cite{harmsenLongtermMarginalAbatement2019a}    & CH\textsubscript{4} and N\textsubscript{2}O MAC curves & \nolinkurl{https://doi.org/10.1016/j.envsci.2019.05.013} \\
   Hurtt et~al.~(2019)~\cite{hurttHarmonizationGlobalLand2020}      & Land Use Harmonization 2 & \nolinkurl{https://luh.umd.edu/index.shtml} \\
+  Gao and Pesaresi (2021)~\cite{gaoGlobal1kmDownscaled2021} & Global 1-km Downscaled Urban Land Extent Projection and Base Year Grids by SSP Scenarios, 2000-2100 & \nolinkurl{https://doi.org/10.7927/1z4r-ez63} \\
+  Gao and Pesaresi (2021)~\cite{gaoDownscalingSSPconsistent2021} & Downscaling SSP-consistent Global Spatial Urban Land Projections from 1/8-degree to 1-km Resolution, 2000-2100 & \nolinkurl{https://doi.org/10.1038/s41597-021-01052-0} \\
   IUCN and UNEP-WCMC~\cite{iucnUNEPWCMCWorldDatabase2025} & World Database on Protected Areas (WDPA), Dec 2025 release & \nolinkurl{https://www.protectedplanet.net} \\
 \end{xltabular}
 
@@ -368,6 +370,11 @@ where:
 
 In addition, protected-area information was incorporated using the World Database on Protected Areas (WDPA)~\cite{iucnUNEPWCMCWorldDatabase2025}.  
 The WDPA polygons were overlaid with basin-country units to estimate protected land by class, and these values were used to construct \(\overline{QLPROT}_{(bas,cty,lu\_prot)}\), which is excluded from allocatable vegetation land in the land-use block.
+
+Urban land was treated consistently with the new SSP urban dataset from SEDAC~\cite{gaoGlobal1kmDownscaled2021,gaoDownscalingSSPconsistent2021}.  
+The 1-km urban fraction data were aggregated to basin-country units and converted to annual series.  
+In calibration, the base-year urban area was aligned with LUH2, and SSP-specific future change from the SEDAC series was used to update urban land in scenario runs.  
+To maintain physical consistency of the land balance, urban area was bounded by zero and by available land after subtracting water/ice and protected land.
 
 
 \subsubsection{Adjustment of price data}
