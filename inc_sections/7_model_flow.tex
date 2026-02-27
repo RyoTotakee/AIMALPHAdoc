@@ -161,7 +161,7 @@ and executes the model according to those configurations.
 Once downloaded, this can be turned off. & on \\
 \texttt{data\_import} & Executes \texttt{1\_data\_import.gms} and \texttt{1-5\_regression.gms}. & on \\
 \texttt{baseyear\_run} & Executes \texttt{2\_baseyear.gms}. & on \\
-\texttt{model\_run} & Executes \texttt{3\_equilibirium.gms}. & on \\
+\texttt{model\_run} & Executes \texttt{3\_equilibrium.gms}. & on \\
 \texttt{combine\_gdx} & Executes \texttt{4\_combine\_gdx.gms}. & on \\
 \texttt{scenario\_combine} & Executes \texttt{5\_scenario\_combine.gms}. & on \\
 \texttt{Visualization} & Executes \texttt{Visualization.R}. & on \\
@@ -171,6 +171,8 @@ If no data update is needed, this may be turned off. & off \\
 \texttt{grid\_data} & Executes \texttt{0\_grid\_data.R}.  
 If no data update is needed, this may be turned off.  
 If executed, the folder \texttt{L/ModelData/AIMALPHA/grid} must be copied to \texttt{AIMALPHA/data}. & off \\
+\texttt{hubauto} & Executes \texttt{tool/Hub2ALPHA.gms} before model run. Place Hub output \texttt{global\_17\_merged.gdx} in \texttt{AIMALPHA/data/Huboutput}. & off \\
+\texttt{afoluauto} & Executes \texttt{tool/AFOLU2ALPHA.gms} before model run. Place AFOLU output \texttt{IAMC\_templatePlus.gdx} in \texttt{AIMALPHA/data/AFOLUoutput}. & off \\
 \texttt{Scenario\_compare} & Enables comparison across scenarios in plots. & off \\
 \texttt{Model\_compare} & Enables comparison across models in plots. & off \\
 \texttt{historical\_check} & Compares simulated and historical data in plots. & off \\
@@ -180,30 +182,33 @@ If executed, the folder \texttt{L/ModelData/AIMALPHA/grid} must be copied to \te
 \multicolumn{3}{@{}l}{\textbf{Scenario settings}} \\[2pt]
 \midrule
 \texttt{socioeconomic\_setting} & Specifies the socioeconomic scenario.  
-A file with the scenario name should exist in \texttt{AIMALPHA/setting/socioeconomic}. & SSP2\_BaU \\
+A file with the scenario name should exist in \texttt{AIMALPHA/setting/socioeconomic}. & SSP2 \\
+\texttt{climatepolicy\_setting} & Specifies the climate-policy scenario.  
+A file with the scenario name should exist in \texttt{AIMALPHA/setting/climatepolicy}. & BaU \\
 \texttt{climate\_setting} & Specifies the climate scenario.  
 A file with the scenario name should exist in \texttt{AIMALPHA/setting/climate}. & NoCC \\
-\texttt{runlist} & Allows individual scenario specification without using the socioeconomic–climate matrix.  
-Scenario names are defined as combined strings (e.g., \texttt{SSP2\_BaU-NoCC}).  
-If this item is specified, the two settings above are ignored. & -- \\
+\texttt{runlist} & Allows direct scenario specification without using the scenario matrix.  
+Scenario names are defined as \texttt{socioeconomic|climatepolicy|climate} (e.g., \texttt{SSP2|500C\_CACN\_DAC|NoCC}).  
+If this item is specified, the three settings above are ignored. & -- \\
 \texttt{start\_year} & Starting year of simulation. & 2015 \\
 \texttt{target\_year} & Ending year of simulation. & 2100 \\
 \midrule
 \multicolumn{3}{@{}l}{\textbf{Execution environment}} \\[2pt]
 \midrule
-\texttt{run\_paralell} & Runs multiple scenarios in parallel. & on \\[2pt]
+\texttt{run\_parallel} & Runs multiple scenarios in parallel. & on \\[2pt]
 \texttt{iteration\_number} & 
 Number of iterations per year.  
-This setting is applied only when \texttt{run\_paralell} is \texttt{off}.  
+This setting is applied only when \texttt{run\_parallel} is \texttt{off}.  
 Larger values improve convergence but increase computation time. & 0 \\[2pt]
 \texttt{MultiSol} & 
-Used only when \texttt{run\_paralell} is \texttt{on}.  
+Used only when \texttt{run\_parallel} is \texttt{on}.  
 An integer between 1 and 5.  
 Specifies the number of internally divided iteration settings to be solved in parallel 
 (e.g., if set to 3, iterations such as 1, 3, and 5 are executed concurrently).  
 This helps the model converge more efficiently.  
 Note that the specified number corresponds to the number of threads required per scenario  
 (e.g., 3 scenarios with \texttt{MultiSol}=3 require 9 threads in total). & 3 \\[2pt]
+\texttt{ModelInt} & Optional suffix appended to scenario IDs. If empty, no suffix is appended. & "" \\[2pt]
 \texttt{NCPU} & Maximum number of CPUs used for parallel computation. & 8 \\[2pt]
 \texttt{mem\_check} & Performs memory usage checks (Windows only). & off \\[2pt]
 \texttt{mem\_threshold} & 
