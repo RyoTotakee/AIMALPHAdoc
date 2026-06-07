@@ -36,7 +36,7 @@ Table~\ref{tab:data_sources} lists the datasets used in the model.
   FAOSTAT~\cite{FAOSTATa} & Producer Prices & \nolinkurl{https://www.fao.org/faostat/en/\#data/PP} \\
   FAOSTAT~\cite{FAOSTATa} & Land Use        & \nolinkurl{https://www.fao.org/faostat/en/\#data/RL} \\
   FAOSTAT~\cite{FAOSTATa} & Emissions       & \nolinkurl{https://www.fao.org/faostat/en/\#data/GCE} \\
-  AQUASTAT~\cite{faolandandwaterdivisionMajorHydrologicalBasins2011} & Major hydrological basins of the world & \nolinkurl{https://data.apps.fao.org/catalog//iso/7707086d-af3c-41cc-8aa5-323d8609b2d1} \\
+  FAO Land and Water Division~\cite{faolandandwaterdivisionMajorHydrologicalBasins2011} & Major Hydrological Basins of the World & \nolinkurl{https://data.apps.fao.org/catalog//iso/7707086d-af3c-41cc-8aa5-323d8609b2d1} \\
   FAO and IIASA~\cite{faoGlobalAgroEcologicalZones2025} & GAEZ v4   & \nolinkurl{https://gaez.fao.org/} \\
   IIASA & SSP 3.0          & \nolinkurl{https://data.ece.iiasa.ac.at/ssp/\#/about} \\
   GTAP~\cite{aguiarGTAPDataBase2019}  & GTAP 10          & \nolinkurl{https://jgea.org/ojs/index.php/jgea/article/view/77} \\
@@ -371,9 +371,10 @@ where:
 In addition, protected-area information was incorporated using the World Database on Protected Areas (WDPA)~\cite{iucnUNEPWCMCWorldDatabase2025}.  
 The WDPA polygons were overlaid with basin-country units to estimate protected land by class, and these values were used to construct \(\overline{QLPROT}_{(bas,cty,lu\_prot)}\), which is excluded from allocatable vegetation land in the land-use block.
 
-Urban land was treated consistently with the new SSP urban dataset from SEDAC~\cite{gaoGlobal1kmDownscaled2021,gaoDownscalingSSPconsistent2021}.  
-The 1-km urban fraction data were aggregated to basin-country units and converted to annual series.  
-In calibration, the base-year urban area was aligned with LUH2, and SSP-specific future change from the SEDAC series was used to update urban land in scenario runs.  
+Urban land is based on the LUH2-consistent base-year area in the default model configuration.  
+The base-year value is held constant in future years unless the optional SEDAC urban-projection extension is enabled.  
+For this extension, the SEDAC 1-km urban fraction data~\cite{gaoGlobal1kmDownscaled2021,gaoDownscalingSSPconsistent2021} were aggregated to basin-country units and converted to annual SSP-specific series.  
+When the extension is switched on, these SEDAC series are used to update urban land in scenario runs while preserving the LUH2-consistent base-year level.  
 To maintain physical consistency of the land balance, urban area was bounded by zero and by available land after subtracting water/ice and protected land.
 
 
