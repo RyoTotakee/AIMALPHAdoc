@@ -24,8 +24,8 @@ Table~\ref{tab:indices} lists the indices used in the model.
   \bottomrule
   \endlastfoot
 
-  \texttt{cty}    & Country / region & 166 & \\
-  \texttt{bas}    & River basin      & 400 & \\
+  \texttt{cty}    & Country & 166 & \\
+  \texttt{bas}    & Production unit & 400 & Unique country--river-basin unit \\
   \texttt{region} & Macro region     & 17  & Same as the regional classification in AIM-Hub~\cite{fujimoriSSP3AIMImplementation2017}. See \cref{sec:appendix_b} \\
   \texttt{c(a)}   & Food commodities (production activities) & 23 & See Table~\ref{tab:commodities} \\
   \texttt{acro}   & Primary crops    & 13  & \\
@@ -108,7 +108,7 @@ Table~\ref{tab:endovars} lists the endogenous variables used in the model.
   \texttt{QLPAS} & Total pasture area & 1000ha \\
   \texttt{QLPASGRZ} & Grazed pasture area & 1000ha \\
   \texttt{QLPASUNG} & Ungrazed pasture area & 1000ha \\
-  \texttt{QLPASN} & Non-pasture area & 1000ha \\
+  \texttt{QLPASN} & Non-pasture vegetation area & 1000ha \\
   \texttt{QLCRO} & Cropland area & 1000ha \\
   \texttt{QLFRS} & Forest area & 1000ha \\
   \texttt{QLPRIMF} & Primary forest area & 1000ha \\
@@ -203,7 +203,7 @@ Table~\ref{tab:exovars} lists the exogenous variables used in the model. For dat
   \texttt{POBASE} & Price of other production factors in the base year & FAOSTAT, GTAP~10 \\
   \texttt{QLTOT} & Total land area & LUH2 \\
   \texttt{QLOTH} & Ice/water area & LUH2 \\
-  \texttt{QLURB} & Urban area & LUH2, SEDAC \\
+  \texttt{QLURB} & Urban area & LUH2; optional SEDAC extension \\
   \texttt{QLPROT} & Protected land area by land-use class & LUH2, WDPA \\
   \texttt{PLFRSBASE} & Forest land price in the base year & LUH2, GTAP~10 \\
   \texttt{PLGRA} & Price of other natural land & LUH2, GTAP~10 \\

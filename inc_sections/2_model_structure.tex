@@ -4,21 +4,21 @@ focusing on agricultural markets and land use, operating with an annual time ste
 The model is formulated as a mixed complementarity problem (MCP) and handles approximately 200,000 variables. 
 The basic model structure is shown in Fig.~\ref{fig:model_structure}.
 
-For the spacial resolution, the demand side covers 166 countries and regions globally, while the production side consists of 400 production units. 
-These production units are defined by overlaying the 166 demand regions~\cite{worldbankWorldBankOfficial2025} with FAO’s 230 major river basin boundaries~\cite{faolandandwaterdivisionMajorHydrologicalBasins2011}. 
-Figure~\ref{fig:regions} illustrates the geographical coverage of the demand regions and production units.
+In terms of spatial resolution, the demand side covers 166 countries globally, while the production side consists of 400 production units. 
+These production units are defined by overlaying national boundaries~\cite{worldbankWorldBankOfficial2025} with FAO's 230 major river basin boundaries~\cite{faolandandwaterdivisionMajorHydrologicalBasins2011}. 
+Figure~\ref{fig:regions} illustrates the geographical coverage of the countries and production units.
 
 Food production is categorized into 13 primary crops, 6 livestock products, and 4 processed goods. Table~\ref{tab:commodities} lists the food commodity classifications used in the model. 
 The production functions are represented by Leontief-type functions, where each good is produced by combining cropland, feed and pasture, 
 and raw materials as inputs. Other factors such as labor, capital, and energy are aggregated into a single production factor. 
 
 Primary crops and livestock products that require land are differentiated by production unit, whereas processed goods, which do not require 
-land inputs, are modeled at the level of the 166 demand regions. Land use within each production unit is allocated according to a multi-nested 
+land inputs, are modeled at the level of the 166 countries. Land use within each production unit is allocated according to a multi-nested 
 logit function that balances total land area, and land shares are determined by relative land prices.
 
 Food demand is driven by population and GDP, with income elasticity considered for future changes. Food prices are determined endogenously 
 so that supply and demand are balanced in the domestic market. Within each country, the balance between production, domestic demand, and net trade 
-(imports minus exports) is maintained. In the global market, total world imports and exports are also balanced. 
+(imports minus exports) is maintained. In the global market, total world imports and exports are balanced after accounting for a calibrated trade residual. 
 
 
 \begin{figure}[tbp]
@@ -46,15 +46,15 @@ so that supply and demand are balanced in the domestic market. Within each count
     \textbf{Primary crops} & Wheat & \texttt{wht} \\
                            & Rice & \texttt{rce} \\
                            & Maize & \texttt{mze} \\
-                           & Other cereals & \texttt{crl} \\
-                           & Roots and tubers & \texttt{str} \\
+                           & Other grains & \texttt{crl} \\
+                           & Starchy roots & \texttt{str} \\
                            & Sugar crops & \texttt{sgr} \\
-                           & Pulses & \texttt{pls} \\
+                           & Legumes & \texttt{pls} \\
                            & Nuts & \texttt{nut} \\
-                           & Oil crops & \texttt{ocr} \\
+                           & Oilseeds & \texttt{ocr} \\
                            & Vegetables & \texttt{vgt} \\
                            & Fruits & \texttt{frt} \\
-                           & Stimulant crops & \texttt{stm} \\
+                           & Stimulants & \texttt{stm} \\
                            & Spices & \texttt{spc} \\
     \addlinespace[4pt]
     \textbf{Livestock products} & Beef & \texttt{cmt} \\
@@ -64,7 +64,7 @@ so that supply and demand are balanced in the domestic market. Within each count
                                 & Eggs & \texttt{egg} \\
                                 & Raw milk & \texttt{mlk} \\
     \addlinespace[4pt]
-    \textbf{Processed products} & Sugar products & \texttt{swt} \\
+    \textbf{Processed products} & Sugar and sweeteners & \texttt{swt} \\
                                 & Vegetable oils & \texttt{vol} \\
                                 & Alcoholic beverages & \texttt{alc} \\
                                 & Dairy products & \texttt{dai} \\
